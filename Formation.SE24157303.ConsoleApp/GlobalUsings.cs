@@ -1,0 +1,1 @@
+﻿global using Formation.SE24157303.Domain.Entites;
