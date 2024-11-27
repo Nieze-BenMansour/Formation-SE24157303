@@ -10,4 +10,5 @@ public interface IAuditEntity
     string UserCreation { get; set; }
 
     string UserModification { get; set; }
+
 }

@@ -2,7 +2,6 @@
 
 public class AuditEntity
 {
-    // Audit
     public DateTime DateCreation { get; set; }
 
     public DateTime DateDerniereModification { get; set; }

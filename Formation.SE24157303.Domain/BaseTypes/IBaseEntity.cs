@@ -1,6 +1,6 @@
 ﻿namespace Formation.SE24157303.Domain.BaseTypes;
 
-public interface IBaseEntity
+public interface IBaseEntity<TPrimaryKey>
 {
-    int Id { get; set; }
+    TPrimaryKey Id { get; set; }
 }

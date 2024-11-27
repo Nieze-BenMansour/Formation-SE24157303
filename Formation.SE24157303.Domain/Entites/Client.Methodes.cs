@@ -12,11 +12,27 @@ public partial class Client
 
     public void SetIdentifiantNationale(int identifiantNationale)
     {
+        // Validation de données
         this._identifiantNationale = identifiantNationale;
     }
 
-    public static Client GetDraftClient()
+    public static Client GetDraftClient(int age)
     {
-        return new Client() { Age = 18, Nom = "No name", _identifiantNationale = 0 };
+        return new Client() 
+        { 
+            Age = age,
+            Nom = "No name",
+            _identifiantNationale = 0
+        };
+    }
+
+    public static object GetClientAlex(string name)
+    {
+        if (name == "Alex")
+        {
+            return new Client { Nom = "Alex" };
+        }
+
+        return "not_found";
     }
 }
