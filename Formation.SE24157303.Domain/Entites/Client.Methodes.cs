@@ -16,12 +16,23 @@ public partial class Client
         this._identifiantNationale = identifiantNationale;
     }
 
-    public static Client GetDraftClient(int age)
+
+    public static Client GetDraftClient(string nom)
     {
-        return new Client() 
-        { 
+        return new Client()
+        {
+            Age = 0,
+            Nom = nom,
+            _identifiantNationale = 0
+        };
+    }
+
+    public static Client GetDraftClient(int age, string nom = "NoName", string nom2 = "NoName")
+    {
+        return new Client()
+        {
             Age = age,
-            Nom = "No name",
+            Nom = nom,
             _identifiantNationale = 0
         };
     }

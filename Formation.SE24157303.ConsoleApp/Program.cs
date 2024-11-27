@@ -1,116 +1,118 @@
-﻿// instantiation vide
-// constructeur sans paramètre ou constructeur par défaut.
-// var client = new Client();
-
-
-// constructeur sans paramètre ou constructeur par défaut.
-//using Formation.SE24157303.ConsoleApp;
-//using Formation.SE24157303.Domain.BaseTypes;
-
-//int ageAuMoins = 18;
-
-//IBaseEntity client1 = new Client()
-//{
-//    Age = ageAuMoins,
-//    Nom = $"Alex {ageAuMoins}"
-//};
-
-//var client2 = new Client(age: 18, nom: "Alex", identifiantNationale: 115599);
-
-//Client client = new();
-
-//// affectation
-//client.Age = 18;
-//client.Nom = "Alex";
-//client.SetIdentifiantNationale(152158478);
-
-//Console.WriteLine(client.Nom.Length);
-
-
-//Console.WriteLine(IdantifantHelper.NombreDigitsAffiche);
-
-//IdantifantHelper.GetBonFormat(client.GetIdentifiantNationale());
-
-//var draftClient = Client.GetDraftClient(18);
-
-//var client = new Client(
-//    age: 18,
-//    nom: "Alex",
-//    identifiantNationale: 115599);
-
-//client.Email = "test.test";
-
-//Console.WriteLine(client.Email);
-
-//var facture = new Facture();
-
-//var montant = facture.GetMontantTTCFormat();
-
-
-//Console.WriteLine(montant);
-
-
-//object obj = Client.GetClientAlex("Alex");
-
-//Client client = obj as Client;
-
-//Client client1 = (Client)obj;
-
-//Console.WriteLine($"{nameof(client)} : {client.Nom} - {nameof(client1)} : {client1.Nom}");
-
-
-//object obj1 = Client.GetClientAlex("David");
-
-//string notFoundString = (string)obj1;
-
-//Console.WriteLine($"{notFoundString}");
-
-//var client2 = new Client(age: 18, nom: "Alex", identifiantNationale: 115599);
-
-//client2.Matricle = "15";
-//client2.Matricle = 15;
-
-
-//using Formation.SE24157303.DAL;
-
-//var client1 = new Client()
-//{
-//    Age = 18,
-//    Nom = $"Alex {18}"
-//};
-
-//var client2 = new Client()
-//{
-//    Age = 18,
-//    Nom = $"Alex2 {18}"
-//};
-
-//var repositoryClient = new Repository<Client>();
-
-//repositoryClient.Add(client1);
-//repositoryClient.Add(client2);
-
-//foreach (var client in repositoryClient.GetAll())
-//{
-//    Console.WriteLine(client.Nom);
-//}
-
-
-
-//Dictionary<int, string> dict = new Dictionary<int, string>();
-//dict.Add(1, "David");
-//dict.Add(2, "Alex");
-
-//foreach (var item in dict)
-//{
-//    Console.WriteLine($"cle : {item.Key}  - valeur : {item.Value}");
-//}
-
+﻿
 
 using Formation.SE24157303.ConsoleApp;
+using Formation.SE24157303.DAL;
+using System.Diagnostics;
 
-var facture = new Facture();
+bool valeurSortie = true;
+var clientRepository = new Repository<Client>();
 
-facture.GetMontantTTCFormat();
+while (valeurSortie)
+{
+    DisplayMenu();
 
-facture.GetMontantTTCEnKhmer();
+    int choix = int.Parse(Console.ReadLine());
+
+    switch (choix)
+    {
+        case (int)ChoixMenu.Ajouter:
+            Client.GetDraftClient(age: 15,nom: "Alex", nom2: "David");
+            Client.GetDraftClient(15);
+            CreateClient(clientRepository);
+            break;
+
+        case (int)ChoixMenu.Afficher:
+            foreach (var client in clientRepository.GetAll())
+            {
+                DisplayClient(client);
+            }
+            break;
+
+        case (int)ChoixMenu.Sortir:
+            valeurSortie = false;
+            break;
+
+        case (int)ChoixMenu.Modifier:
+            try
+            {
+                Console.WriteLine("Entrer l'id du client à modifier");
+                int idEntityToUpdate = int.Parse(Console.ReadLine());
+                var clientToUpdate = new Client
+                {
+                    Id = idEntityToUpdate,
+                };
+
+                clientRepository.Update(clientToUpdate);
+            }
+            catch (ArgumentNullException ex)
+            {
+                DisplayError(message: "Client non trouvé!", exception: ex);
+            }
+            break;
+
+        default:
+            break;
+    }
+}
+
+void DisplayMenu()
+{
+    Console.WriteLine("Menu");
+    Console.WriteLine("1 : Ajouter un client");
+    Console.WriteLine("2 : Afficher tout les clients");
+    Console.WriteLine("3 : Modifier client");
+    Console.WriteLine("0 : Quitter");
+}
+
+static void DisplayClient(Client client)
+{
+    Console.WriteLine($"Nom : {client.Nom}");
+    Console.WriteLine($"Age : {client.Age}");
+    Console.WriteLine("------");
+}
+
+static void CreateClient(Repository<Client> clientRepository)
+{
+    Console.WriteLine("Entrer le nom : ");
+    string nom = Console.ReadLine();
+
+    Console.WriteLine("Entrer l'age : ");
+
+    try
+    {
+        string? valeurTmp = Console.ReadLine();
+
+        // TODO Utiliser le int.TryParse pe les out les in (slide 109)
+        int age = int.Parse(valeurTmp == string.Empty ? null : valeurTmp);
+
+        var clientToCreate = new Client
+        {
+            Nom = nom,
+            Age = age,
+        };
+
+        clientRepository.Create(clientToCreate);
+    }
+    catch (FormatException ex)
+    {
+        DisplayError("Mauvaise format de l'age", ex);
+    }
+    catch (ArgumentNullException ex)
+    {
+        DisplayError("Le valeur de l'age est null", ex);
+    }
+    catch (Exception ex) 
+    {
+        DisplayError("Probléme survenu! Contacter le service support!", ex);
+    }
+
+}
+
+static void DisplayError(string message, Exception exception)
+{
+    Debug.WriteLine(exception.Message);
+
+    Console.WriteLine("----- Exception --------");
+    Console.WriteLine(message);
+    Console.WriteLine("*******************");
+}
