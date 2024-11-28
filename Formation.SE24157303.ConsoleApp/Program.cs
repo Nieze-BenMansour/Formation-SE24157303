@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 bool valeurSortie = true;
 const string filePath = "clients.json";
-IRepository<Client> clientRepository = new Repository<Client>(filePath: filePath);
+IRepository<Client> clientRepository = new Repository<Client>();
 
 while (valeurSortie)
 {
