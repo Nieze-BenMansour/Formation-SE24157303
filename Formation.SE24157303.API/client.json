@@ -1,0 +1,12 @@
+[
+  {
+    "Age": 77,
+    "Nom": "Paul",
+    "Email": "email_non_valide",
+    "Id": 66,
+    "DateCreation": "2024-11-28T09:47:08.354Z",
+    "DateDerniereModification": "2024-11-28T09:47:08.354Z",
+    "UserCreation": "string",
+    "UserModification": "string"
+  }
+]

@@ -8,9 +8,9 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : AuditEnt
 {
     public List<TEntity> EntitiesDataStore { get; set; } = new List<TEntity>();
 
-    public Repository(string filePath)
+    public Repository()
     {
-        _filePath = filePath;
+        _filePath = "client.json";
         EntitiesDataStore = LoadFromFile();
     }
 
@@ -39,9 +39,21 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : AuditEnt
         return EntitiesDataStore.Count;
     }
 
-    public void Delete(TEntity entity)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="entityId"></param>
+    /// <exception cref="ClientNotFoundException"></exception>
+    public void Delete(int entityId)
     {
-        EntitiesDataStore.Remove(entity);
+        var entityToDelete = EntitiesDataStore.FirstOrDefault(entity => entity.Id == entityId);
+
+        if (entityToDelete is null)
+        {
+            throw new ClientNotFoundException("On n'a trouvé l'entité");
+        }
+
+        EntitiesDataStore.Remove(entityToDelete);
         SaveToFile();
     }
 

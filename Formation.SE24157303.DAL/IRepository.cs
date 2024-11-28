@@ -15,7 +15,7 @@ public interface IRepository<TEntity> where TEntity : AuditEntity, IBaseEntity<i
     /// <returns>ça designe le nombre totale des enregistrements.</returns>
     int Create(TEntity entity);
     
-    void Delete(TEntity entity);
+    void Delete(int entityId);
     
     void Update(TEntity entity);
 }

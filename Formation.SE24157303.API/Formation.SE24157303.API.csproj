@@ -10,4 +10,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Formation.SE24157303.DAL\Formation.SE24157303.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

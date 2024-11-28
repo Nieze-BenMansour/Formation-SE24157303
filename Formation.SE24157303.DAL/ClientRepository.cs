@@ -4,7 +4,7 @@ namespace Formation.SE24157303.DAL;
 
 public class ClientRepository : Repository<Client>
 {
-    public ClientRepository(string filePath) : base(filePath)
+    public ClientRepository(string filePath)
     {
     }
 
