@@ -39,6 +39,10 @@ public partial class Client : AuditEntity, IBaseEntity<int>, IAuditEntity
 
         set 
         {
+            if (value is null)
+            {
+                return;
+            }
             string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 
             bool isValidEmail = Regex.IsMatch(value, emailPattern);

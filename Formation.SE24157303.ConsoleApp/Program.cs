@@ -1,11 +1,11 @@
-﻿
-
-using Formation.SE24157303.ConsoleApp;
+﻿using Formation.SE24157303.ConsoleApp;
 using Formation.SE24157303.DAL;
+using Formation.SE24157303.Domain.Exceptions;
 using System.Diagnostics;
 
 bool valeurSortie = true;
-var clientRepository = new Repository<Client>();
+const string filePath = "clients.json";
+IRepository<Client> clientRepository = new Repository<Client>(filePath: filePath);
 
 while (valeurSortie)
 {
@@ -16,8 +16,6 @@ while (valeurSortie)
     switch (choix)
     {
         case (int)ChoixMenu.Ajouter:
-            Client.GetDraftClient(age: 15,nom: "Alex", nom2: "David");
-            Client.GetDraftClient(15);
             CreateClient(clientRepository);
             break;
 
@@ -35,16 +33,9 @@ while (valeurSortie)
         case (int)ChoixMenu.Modifier:
             try
             {
-                Console.WriteLine("Entrer l'id du client à modifier");
-                int idEntityToUpdate = int.Parse(Console.ReadLine());
-                var clientToUpdate = new Client
-                {
-                    Id = idEntityToUpdate,
-                };
-
-                clientRepository.Update(clientToUpdate);
+                UpdateClient(clientRepository);
             }
-            catch (ArgumentNullException ex)
+            catch (ClientNotFoundException ex)
             {
                 DisplayError(message: "Client non trouvé!", exception: ex);
             }
@@ -71,10 +62,13 @@ static void DisplayClient(Client client)
     Console.WriteLine("------");
 }
 
-static void CreateClient(Repository<Client> clientRepository)
+static void CreateClient(IRepository<Client> clientRepository)
 {
     Console.WriteLine("Entrer le nom : ");
     string nom = Console.ReadLine();
+
+    Console.WriteLine("Entrer l'id : ");
+    int id = int.Parse(Console.ReadLine());
 
     Console.WriteLine("Entrer l'age : ");
 
@@ -87,6 +81,7 @@ static void CreateClient(Repository<Client> clientRepository)
 
         var clientToCreate = new Client
         {
+            Id = id,
             Nom = nom,
             Age = age,
         };
@@ -115,4 +110,26 @@ static void DisplayError(string message, Exception exception)
     Console.WriteLine("----- Exception --------");
     Console.WriteLine(message);
     Console.WriteLine("*******************");
+}
+
+static void UpdateClient(IRepository<Client> clientRepository)
+{
+    Console.WriteLine("Entrer le nom : ");
+    string nom = Console.ReadLine();
+
+    Console.WriteLine("Entrer l'id du client à modifier");
+    int idEntityToUpdate = int.Parse(Console.ReadLine());
+
+    Console.WriteLine("Entrer l'age : ");
+
+    int age = int.Parse(Console.ReadLine());
+
+    var clientToUpdate = new Client
+    {
+        Id = idEntityToUpdate,
+        Age = age,
+        Nom = nom
+    };
+
+    clientRepository.Update(clientToUpdate);
 }
