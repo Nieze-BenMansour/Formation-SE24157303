@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Formation.SE24157303.Contracts\Formation.SE24157303.Contracts.csproj" />
     <ProjectReference Include="..\Formation.SE24157303.DAL\Formation.SE24157303.DAL.csproj" />
   </ItemGroup>
 

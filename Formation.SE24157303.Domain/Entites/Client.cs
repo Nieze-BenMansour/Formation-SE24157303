@@ -6,30 +6,31 @@ namespace Formation.SE24157303.Domain.Entites;
 // type réference (stockage ça va être en mémoire heap)
 public partial class Client : AuditEntity, IBaseEntity<int>, IAuditEntity
 {
-    // Constructeurs
-    public Client()
-    {
-    }
-
-    public Client(int age, int identifiantNationale, string nom)
-    {
-        Age = age;
-        Nom = nom;
-        _identifiantNationale = identifiantNationale;
-    }
-
-    public Client(int age, string nom)
+    public Client(
+        int age,
+        string nom,
+        int identifiantNationale,
+        ClientType clientType,
+        string email)
     {
         Age = age;
         Nom = nom;
+        IdentifiantNationale = identifiantNationale;
+        ClientType = clientType;
+        _email = email;
     }
 
     // propriétes 
+    public int Id { get; set; }
+
     public int Age { get; set; } // PascalCase si public
 
     public string Nom { get; set; } // PascalCase si public
 
-    private string _email;
+    public int IdentifiantNationale { get; set; }
+
+    public ClientType ClientType { get; set; }
+
     public string Email 
     { 
         get
@@ -49,11 +50,8 @@ public partial class Client : AuditEntity, IBaseEntity<int>, IAuditEntity
 
             if (isValidEmail) { _email = value; }
             else { _email = "email_non_valide"; }
-            
         } 
     }
 
-    public int Id { get; set; }
-
-    private int _identifiantNationale; // camelCase si private
+    private string _email;
 }

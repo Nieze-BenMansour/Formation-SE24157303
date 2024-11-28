@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formation.SE24157303.DAL", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formation.SE24157303.API", "Formation.SE24157303.API\Formation.SE24157303.API.csproj", "{FF76C41D-CA4F-46E5-B535-3886F065BBD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formation.SE24157303.Contracts", "Formation.SE24157303.Contracts\Formation.SE24157303.Contracts.csproj", "{C4D1ACFD-CD35-400D-9638-E07BE2067DEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{FF76C41D-CA4F-46E5-B535-3886F065BBD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF76C41D-CA4F-46E5-B535-3886F065BBD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF76C41D-CA4F-46E5-B535-3886F065BBD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D1ACFD-CD35-400D-9638-E07BE2067DEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D1ACFD-CD35-400D-9638-E07BE2067DEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D1ACFD-CD35-400D-9638-E07BE2067DEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D1ACFD-CD35-400D-9638-E07BE2067DEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

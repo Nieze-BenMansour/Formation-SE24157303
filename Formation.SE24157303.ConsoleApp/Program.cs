@@ -67,8 +67,7 @@ static void CreateClient(IRepository<Client> clientRepository)
     Console.WriteLine("Entrer le nom : ");
     string nom = Console.ReadLine();
 
-    Console.WriteLine("Entrer l'id : ");
-    int id = int.Parse(Console.ReadLine());
+    // TODO generate manullay auto incrempent de l'id
 
     Console.WriteLine("Entrer l'age : ");
 
@@ -80,11 +79,13 @@ static void CreateClient(IRepository<Client> clientRepository)
         int age = int.Parse(valeurTmp == string.Empty ? null : valeurTmp);
 
         var clientToCreate = new Client
-        {
-            Id = id,
-            Nom = nom,
-            Age = age,
-        };
+            (
+                age: age,
+                nom: nom,
+                identifiantNationale: 0,
+                clientType: ClientType.PersonnePhysique,
+                email: string.Empty
+            );
 
         clientRepository.Create(clientToCreate);
     }
@@ -125,11 +126,13 @@ static void UpdateClient(IRepository<Client> clientRepository)
     int age = int.Parse(Console.ReadLine());
 
     var clientToUpdate = new Client
-    {
-        Id = idEntityToUpdate,
-        Age = age,
-        Nom = nom
-    };
+            (
+                age: age,
+                nom: nom,
+                identifiantNationale: 0,
+                clientType: ClientType.PersonnePhysique,
+                email: string.Empty
+            );
 
     clientRepository.Update(clientToUpdate);
 }
