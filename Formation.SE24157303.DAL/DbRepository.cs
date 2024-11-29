@@ -16,6 +16,10 @@ public class DbRepository<TEntity>
 
     public int Create(TEntity entity)
     {
+        entity.DateCreation = DateTime.Now;
+        entity.DateDerniereModification = DateTime.Now;
+        entity.UserCreation = "CurrentUser";
+        entity.UserModification = "CurrentUser";
         _salesContext.Add(entity);
         _salesContext.SaveChanges();
 
@@ -65,6 +69,9 @@ public class DbRepository<TEntity>
         //{
         //    throw new ClientNotFoundException("On n'a trouvé l'entité");
         //}
+
+        entity.DateDerniereModification = DateTime.Now;
+        entity.UserModification = "CurrentUser";
 
         _salesContext.Update(entity);
 

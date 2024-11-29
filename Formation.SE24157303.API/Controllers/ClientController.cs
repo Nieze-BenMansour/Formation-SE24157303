@@ -50,18 +50,18 @@ public class ClientController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public IActionResult Post([FromBody]CreateClientRequest createClientRequest)
+    public IActionResult Post([FromBody] CreateClientRequest createClientRequest)
     {
         // TODO : méthode d'extension pour le mapping entité -> DTO et vice-versa.
         // TODO : nuget packages pour le mapping entité -> DTO et vice-versa, par le package AutoMapper ou Mapster.
         var client = new Client
-            (
-                age: createClientRequest.Age,
-                nom: createClientRequest.Nom,
-                identifiantNationale: createClientRequest.IdentifiantNationale,
-                clientType: createClientRequest.ClientType,
-                email: createClientRequest.Email
-            );
+        {
+                Age = createClientRequest.Age,
+                Nom = createClientRequest.Nom,
+                IdentifiantNationale = createClientRequest.IdentifiantNationale,
+                ClientType = createClientRequest.ClientType,
+                Email = createClientRequest.Email,
+        };
 
         _clientRepository.Create(client);
 
@@ -107,7 +107,7 @@ public class ClientController : ControllerBase
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public IActionResult Update(int id, [FromBody] Client client)
+    public IActionResult Update(int id, [FromBody] UpdateClientRequest updateClientRequest)
     {
         _logger.LogInformation("L'action update du controller Client est appellée");
 
@@ -119,9 +119,11 @@ public class ClientController : ControllerBase
             return NotFound();
         }
 
-        clientToUpdate.Nom = client.Nom;
-        clientToUpdate.Age = client.Age;
-        //clientToUpdate.SetIdentifiantNationale(client.GetIdentifiantNationale());
+        clientToUpdate.Nom = updateClientRequest.Nom;
+        clientToUpdate.Age = updateClientRequest.Age;
+        clientToUpdate.Email = updateClientRequest.Email;
+        clientToUpdate.IdentifiantNationale = updateClientRequest.IdentifiantNationale;
+        clientToUpdate.ClientType = updateClientRequest.ClientType;
 
         _clientRepository.Update(clientToUpdate);
 

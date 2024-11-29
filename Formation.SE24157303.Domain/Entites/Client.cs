@@ -6,6 +6,10 @@ namespace Formation.SE24157303.Domain.Entites;
 // type réference (stockage ça va être en mémoire heap)
 public partial class Client : AuditEntity, IBaseEntity<int>, IAuditEntity
 {
+    public Client()
+    {
+        
+    }
     public Client(
         int age,
         string nom,

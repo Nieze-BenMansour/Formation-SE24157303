@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formation.SE24157303.API", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formation.SE24157303.Contracts", "Formation.SE24157303.Contracts\Formation.SE24157303.Contracts.csproj", "{C4D1ACFD-CD35-400D-9638-E07BE2067DEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formation.SE24157303.WebApp", "Formation.SE24157303.WebApp\Formation.SE24157303.WebApp.csproj", "{D693383F-F613-41F6-BF89-CEB7AE1AB43C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C4D1ACFD-CD35-400D-9638-E07BE2067DEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4D1ACFD-CD35-400D-9638-E07BE2067DEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4D1ACFD-CD35-400D-9638-E07BE2067DEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D693383F-F613-41F6-BF89-CEB7AE1AB43C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D693383F-F613-41F6-BF89-CEB7AE1AB43C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D693383F-F613-41F6-BF89-CEB7AE1AB43C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D693383F-F613-41F6-BF89-CEB7AE1AB43C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

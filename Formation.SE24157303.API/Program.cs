@@ -10,10 +10,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(); 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+
+
+var salesDbConnectionString = builder.Configuration.GetConnectionString("SalesDbConnection");
 builder.Services
     .AddDbContext<SalesContext>(
     c => c
-    .UseSqlServer("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SalesDb;Data Source=LAPTOP-UR7S8C4K;Encrypt=False;"));
+    .UseSqlServer(salesDbConnectionString));
 
 
 var app = builder.Build();

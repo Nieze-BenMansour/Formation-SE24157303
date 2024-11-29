@@ -1,0 +1,60 @@
+﻿@page "/clients"
+@using Formation.SE24157303.Contracts.DTOs.Clients
+@inject ClientService ClientService
+
+<h3>Clients</h3>
+
+<button class="btn btn-primary" @* @onclick="NavigateToCreate" *@>Ajouter un client</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Age</th>
+            <th>Identifiant Nationale</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (clients != null)
+        {
+            @foreach (var client in clients)
+            {
+                <tr>
+                    <td>@client.Nom</td>
+                    <td>@client.Age</td>
+                    <td>@client.IdentifiantNationale</td>
+                    <td>
+                        <button class="btn btn-warning" @* @onclick="() => NavigateToEdit(client.Id)" *@>Modifier</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteClient(client.Id)">Supprimer</button>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">Chargement des clients...</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<GetClientResponse>? clients;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clients = await ClientService.GetClientsAsync();
+    }
+
+    //private void NavigateToCreate() => NavigationManager.NavigateTo("/clients/create");
+
+    //private void NavigateToEdit(int id) => NavigationManager.NavigateTo($"/clients/edit/{id}");
+
+    private async Task DeleteClient(int id)
+    {
+        await ClientService.DeleteClientAsync(id);
+        clients = await ClientService.GetClientsAsync();
+    }
+}
