@@ -4,6 +4,9 @@ namespace Formation.SE24157303.DAL;
 
 public interface IRepository<TEntity> where TEntity : AuditEntity, IBaseEntity<int>
 {
+
+    IQueryable<TEntity> GetAllQuery();
+
     IEnumerable<TEntity> GetAll();
     
     TEntity? GetById(int id);

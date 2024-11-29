@@ -2,6 +2,7 @@
 using Formation.SE24157303.DAL;
 using Formation.SE24157303.Domain.Entites;
 using Formation.SE24157303.Domain.Exceptions;
+using Formation.SE24157303.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -14,13 +15,16 @@ public class ClientController : ControllerBase
 {
     private readonly IRepository<Client> _clientRepository;
     private readonly ILogger<ClientController> _logger;
+    private readonly IClientService _clientService;
 
     public ClientController(
         IRepository<Client> clientRepository,
-        ILogger<ClientController> logger)
+        ILogger<ClientController> logger,
+        IClientService clientService)
     {
         _clientRepository = clientRepository;
         _logger = logger;
+        _clientService = clientService;
     }
 
     [HttpGet]
@@ -28,22 +32,12 @@ public class ClientController : ControllerBase
     public IActionResult Get()
     {
         _logger.LogInformation("L'action get du controller Client est appellée");
-        List<Client> clients = _clientRepository.GetAll().ToList();
-        _logger.LogInformation("Récuperation des clients : succées");
+        
+        List<GetClientResponse> GetClientResponses = _clientService.GetAll().ToList();
 
-        var GetClientResponses = new List<GetClientResponse>();
-
-        foreach (var client in clients)
-        {
-            GetClientResponses.Add(
-                new GetClientResponse() 
-                {
-                    Age = client.Age,
-                    Id = client.Id,
-                    IdentifiantNationale = client.IdentifiantNationale,
-                    Nom = client.Nom,
-                });
-        }
+        _logger.LogInformation("Récuperation des {ResponseName} : succées ({ResponseCount})",
+            nameof(GetClientResponse),
+            GetClientResponses.Count);
 
         return Ok(GetClientResponses);
     }
@@ -109,6 +103,7 @@ public class ClientController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public IActionResult Update(int id, [FromBody] UpdateClientRequest updateClientRequest)
     {
+        // TODO validation de données
         _logger.LogInformation("L'action update du controller Client est appellée");
 
         var clientToUpdate = _clientRepository.GetById(id);

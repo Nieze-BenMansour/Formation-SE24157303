@@ -105,4 +105,9 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : AuditEnt
 
         File.WriteAllText(_filePath, jsonData);
     }
+
+    public IQueryable<TEntity> GetAllQuery()
+    {
+        throw new NotImplementedException();
+    }
 }

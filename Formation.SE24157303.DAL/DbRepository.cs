@@ -45,6 +45,11 @@ public class DbRepository<TEntity>
         return _salesContext.Set<TEntity>().ToList();
     }
 
+    public IQueryable<TEntity> GetAllQuery()
+    {
+        return _salesContext.Set<TEntity>().AsQueryable();
+    }
+
     public TEntity? GetById(int id)
     {
         var entityToGet = _salesContext.Set<TEntity>()
