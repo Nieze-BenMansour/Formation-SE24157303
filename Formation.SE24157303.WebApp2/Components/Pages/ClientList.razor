@@ -1,6 +1,7 @@
 ﻿@page "/clients"
+
 @using Formation.SE24157303.Contracts.DTOs.Clients
-@inject HttpClientService ClientService
+@inject ClientService ClientService
 @inject NavigationManager NavigationManager
 
 <h3>Liste des Clients</h3>
@@ -59,3 +60,4 @@
         clients = await ClientService.GetClientsAsync();
     }
 }
+

@@ -1,0 +1,75 @@
+﻿@page "/ClientForm/{id:int?}"
+@using Formation.SE24157303.Contracts.DTOs.Clients
+@inject HttpClientService ClientService
+@inject NavigationManager NavigationManager
+
+<h3>@(isEdit ? "Modifier un Client" : "Créer un Client")</h3>
+
+@if (client == null && isEdit)
+{
+    <p>Chargement...</p>
+}
+else
+{
+    <EditForm Model="client" OnValidSubmit="SaveClient">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label for="nom" class="form-label">Nom</label>
+            <InputText id="nom" class="form-control" @bind-Value="client!.Nom" />
+        </div>
+
+        <div class="mb-3">
+            <label for="age" class="form-label">Age</label>
+            <InputNumber id="age" class="form-control" @bind-Value="client!.Age" />
+        </div>
+
+        <div class="mb-3">
+            <label for="identifiantNationale" class="form-label">Identifiant Nationale</label>
+            <InputNumber id="identifiantNationale" class="form-control" @bind-Value="client!.IdentifiantNationale" />
+        </div>
+        <button type="submit" class="btn btn-primary">@submitButtonText</button>
+        <button type="button" class="btn btn-secondary" @onclick="Cancel">Annuler</button>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    private GetClientResponse? client;
+    private bool isEdit => Id.HasValue;
+    private string submitButtonText => isEdit ? "Mettre à jour" : "Créer";
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (isEdit)
+        {
+            client = await ClientService.GetClientAsync(Id.Value);
+        }
+        else
+        {
+            client = new GetClientResponse();
+        }
+    }
+
+    private async Task SaveClient()
+    {
+        if (isEdit)
+        {
+            //await ClientService.UpdateClientAsync(Id.Value, client!);
+        }
+        else
+        {
+            //await ClientService.CreateClientAsync(client!);
+        }
+
+        NavigationManager.NavigateTo("/clients");
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/clients");
+    }
+}

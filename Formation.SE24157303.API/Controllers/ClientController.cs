@@ -78,7 +78,7 @@ public class ClientController : ControllerBase
         {
             _logger.LogInformation("L'action delete du controller Client est appellée");
 
-            _clientRepository.Delete(id);
+            _clientService.Delete(id);
 
             return NoContent();
         } 
@@ -98,21 +98,9 @@ public class ClientController : ControllerBase
         // TODO validation de données
         _logger.LogInformation("L'action update du controller Client est appellée");
 
-        var clientToUpdate = _clientRepository.GetById(id);
+        
 
-        if (clientToUpdate is null)
-        {
-            _logger.LogWarning("Client non trouvé");
-            return NotFound();
-        }
-
-        clientToUpdate.Nom = updateClientRequest.Nom;
-        clientToUpdate.Age = updateClientRequest.Age;
-        clientToUpdate.Email = updateClientRequest.Email;
-        clientToUpdate.IdentifiantNationale = updateClientRequest.IdentifiantNationale;
-        clientToUpdate.ClientType = updateClientRequest.ClientType;
-
-        _clientRepository.Update(clientToUpdate);
+        //_clientRepository.Update(clientToUpdate);
 
         return NoContent();
     }

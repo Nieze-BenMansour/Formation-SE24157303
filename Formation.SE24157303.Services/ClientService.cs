@@ -1,6 +1,7 @@
 ﻿using Formation.SE24157303.Contracts.DTOs.Clients;
 using Formation.SE24157303.DAL;
 using Formation.SE24157303.Domain.Entites;
+using Formation.SE24157303.Domain.Exceptions;
 
 namespace Formation.SE24157303.Services;
 
@@ -31,7 +32,14 @@ public class ClientService : IClientService
 
     public void Delete(int entityId)
     {
-        throw new NotImplementedException();
+        var clientExist = _clientRepository.GetById(entityId);
+
+        if (clientExist is null)
+        {
+            throw new ClientNotFoundException("client_not_found");
+        }
+
+        _clientRepository.Delete(entityId);
     }
 
     public IEnumerable<GetClientResponse> GetAll()
@@ -54,6 +62,18 @@ public class ClientService : IClientService
 
     public void Update(UpdateClientRequest entity)
     {
-        throw new NotImplementedException();
+        //var clientToUpdate = _clientRepository.GetById(entity);
+
+        //if (clientToUpdate is null)
+        //{
+        //    _logger.LogWarning("Client non trouvé");
+        //    return NotFound();
+        //}
+
+        //clientToUpdate.Nom = updateClientRequest.Nom;
+        //clientToUpdate.Age = updateClientRequest.Age;
+        //clientToUpdate.Email = updateClientRequest.Email;
+        //clientToUpdate.IdentifiantNationale = updateClientRequest.IdentifiantNationale;
+        //clientToUpdate.ClientType = updateClientRequest.ClientType;
     }
 }

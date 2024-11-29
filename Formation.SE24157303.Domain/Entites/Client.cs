@@ -1,4 +1,6 @@
 ﻿using Formation.SE24157303.Domain.BaseTypes;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace Formation.SE24157303.Domain.Entites;
