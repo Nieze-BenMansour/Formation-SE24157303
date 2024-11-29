@@ -46,20 +46,12 @@ public class ClientController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     public IActionResult Post([FromBody] CreateClientRequest createClientRequest)
     {
-        // TODO : méthode d'extension pour le mapping entité -> DTO et vice-versa.
-        // TODO : nuget packages pour le mapping entité -> DTO et vice-versa, par le package AutoMapper ou Mapster.
-        var client = new Client
-        {
-                Age = createClientRequest.Age,
-                Nom = createClientRequest.Nom,
-                IdentifiantNationale = createClientRequest.IdentifiantNationale,
-                ClientType = createClientRequest.ClientType,
-                Email = createClientRequest.Email,
-        };
+        // Req : méthode d'extension pour le mapping entité -> DTO et vice-versa.
+        // Req : nuget packages pour le mapping entité -> DTO et vice-versa, par le package AutoMapper ou Mapster.
 
-        _clientRepository.Create(client);
+        var clientId = _clientService.Create(createClientRequest);
 
-        return Created();
+        return Created($"/Client/{clientId}", createClientRequest);
     }
 
     [HttpGet("{id}")]

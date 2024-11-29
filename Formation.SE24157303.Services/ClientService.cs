@@ -13,9 +13,20 @@ public class ClientService : IClientService
         _clientRepository = clientRepository;
     }
 
-    public int Create(CreateClientRequest entity)
+    public int Create(CreateClientRequest createClientRequest)
     {
-        throw new NotImplementedException();
+        var client = new Client
+        {
+            Age = createClientRequest.Age,
+            Nom = createClientRequest.Nom,
+            IdentifiantNationale = createClientRequest.IdentifiantNationale,
+            ClientType = createClientRequest.ClientType,
+            Email = createClientRequest.Email,
+        };
+
+        _clientRepository.Create(client);
+
+        return client.Id;
     }
 
     public void Delete(int entityId)
